@@ -42,9 +42,9 @@ end
 
 
 
-# CHALLENGE 5
+# BONUS CHALLENGE 5
 
-# Create a method to dispaly the details of a student
+# Create a method to display the details of a student
 # Create a method to find a student by first name
 # Take into account that the data set may continue people with the same names
 
