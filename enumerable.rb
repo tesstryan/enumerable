@@ -6,7 +6,8 @@ students = %w[ Venvictor Garrett Joe Chance Laurent Katie Abdulla Erinn Pete Jac
 
 # %w is a short-hand way to create an array of strings. Each string is created based on the spaces.
 
-puts "\nShowing names using an each loop in a do end block.."
+puts ""
+puts "Showing names using an each loop in a do end block.."
 
 students.each do |student|
   puts "#{student}"
@@ -15,12 +16,15 @@ end
 
 # Using the .each method with the one liner block syntax
 
-puts "\nShowing names using an each loop in a one-line block.."
+puts ""
+puts "Showing names using an each loop in a one-line block.."
 
 students.each { |student| puts "#{student}" }
 
 # { is the same as do
 # } is the same as end
+
+# Only use one-liners for short single line code blocks. Otherwise use the do end block.
 
 # Using the .each method with a hash
 
@@ -28,11 +32,15 @@ student = { "name" => "Vincent Cabansag", "email" => "vince@starterleague.com", 
 
 # Accessing the twitter key in the hash will return the corresponding value
 
+puts ""
+
 student["twitter"]
 
 student.each do |key, value|
   puts "#{key}: #{value}"
 end
+
+puts ""
 
 
 
@@ -69,14 +77,11 @@ states = {"Chicago" => "Illinois", "Freeport" => "Illinois", "Skokie" => "Illino
 #  Raghu Betina is from Goshen, Indiana.
 #  Vince Cabansag is from Sturgis, Michigan.
 
+# SOLUTION
 
-
-
-
-
-
-
-
+students.each do |student|
+  puts "#{student["first"]} #{student["last"]}'s hometown is #{student["hometown"]}, #{states[student["hometown"]]}."
+end
 
 
 
@@ -105,6 +110,10 @@ car_lot = [{:company => "Ford", :type => "SUV"},
            {:company => "Porsche", :type => "Sedan"},
            {:company => "Toyota", :type => "SUV"}]
 
+           { 'company' => 'Toyota'}
+           { :company => 'Toyota'}
+           { company: 'Toyota' }
+
 
 # Use the array of hashes above with the select and/or reject methods
 # Try using the count method and display output like following.
@@ -117,6 +126,24 @@ car_lot = [{:company => "Ford", :type => "SUV"},
 
 # "We also have 2 SUVs. They're made by:""
 # "Ford and Toyota"
+
+# SOLUTION
+
+sedans = car_lot.select { |car| car[:type] == "Sedan" }
+
+puts ""
+puts "I checked the car lot and we have #{sedans.count} sedans."
+puts "Here's the manufacturers for each of those sedans:"
+
+puts sedans.collect { |car| "#{car[:company]}" }.join(", ")
+puts ""
+sedans = car_lot.reject { |car| car[:type] == "SUV" }
+
+puts "We also have 2 SUVs. They're made by:"
+
+suvs = car_lot.reject { |car| car[:type] == "Sedan" }
+
+puts suvs.collect { |suv| suv[:company] }.join(" and ")
 
 
 
@@ -136,7 +163,7 @@ car_lot = [{:company => "Ford", :type => "SUV"},
 tsl_team = [{ :name => "Vince", :twitter => "vcabansag" },
             { :name => "Raghu", :twitter => "rebtina717" },
             { :name => "Jeff", :twitter => "jeffcohen" },
-            { :name => "Caity", :twitter => "caitymoran" }
+            { :name => "Caity", :twitter => "caitymoran" },
             { :name => "Neal", :twitter => "nealsales" },
             { :name => "Arvin", :twitter => "arvindang" },
             { :name => "Mike", :twitter => "michaelmcgee" }]
@@ -155,6 +182,14 @@ tsl_team = [{ :name => "Vince", :twitter => "vcabansag" },
 # @arvindang
 # @michaelmcgee
 
+# SOLUTION
+
+twitter_handles = tsl_team.collect { |member| "@#{member[:twitter]}" }
+
+puts ""
+puts "Here's a collection of some of the TSL staff twitter handles:"
+twitter_handles.each { |handle| puts "#{handle}" }
+puts ""
 
 
 
@@ -201,11 +236,25 @@ club_cubby = %w[ guy gal guy gal guy gal guy guy gal
 
 # For each club, display whether you see a "bro" or if the coast is clear.
 
-# "Entering the first club..""
+# "Entering the club..""
 # "Bro spotted, let's find another club"
 
-# "Entering the second club..""
+# "Entering the club..""
 # "Coast is clear"
 
-# "Entering the first club..""
+# "Entering the club..""
 # "Bro spotted, let's find another club"
+
+# SOLUTION
+
+[ club_paris, club_lumen, club_cubby ].each do |club|
+  puts "Entering the club.."
+  if club.detect { |peep| peep == "bro" }
+    puts "Bro spotted, let's find another club"
+    puts ""
+  else
+    puts "Coast is clear"
+    puts ""
+  end
+end
+
